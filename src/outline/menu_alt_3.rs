@@ -1,11 +1,11 @@
 use seed::{prelude::*, *};
 
-use super::Outline;
+use super::{outline_trait_private::OutlinePrivate, Outline};
 
 pub struct MenuAlt3;
 
-impl Outline for MenuAlt3 {
-    fn base<T>(classes: Vec<&str>) -> Node<T> {
+impl OutlinePrivate for MenuAlt3 {
+    fn base<T>(classes: impl ToClasses) -> Node<T> {
         svg![
             C![classes],
             attrs!(
@@ -22,3 +22,5 @@ impl Outline for MenuAlt3 {
         ]
     }
 }
+
+impl Outline for MenuAlt3 {}

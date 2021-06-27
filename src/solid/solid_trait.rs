@@ -1,27 +1,28 @@
 use seed::prelude::*;
 
-pub trait Solid {
-    fn base<T>(classes: Vec<&str>) -> Node<T>;
+use super::solid_trait_private::SolidPrivate;
 
-    fn classes() -> Vec<&'static str> {
-        vec!["h-5", "w-5"]
-    }
-
+pub trait Solid: SolidPrivate {
     fn clean<T>() -> Node<T> {
-        Self::base(Vec::new())
+        let vec: Vec<String> = Vec::new();
+        Self::base(vec)
     }
 
     fn default<T>() -> Node<T> {
         Self::base(Self::classes())
     }
 
-    fn append<T>(classes: Vec<&str>) -> Node<T> {
-        let mut union = Self::classes();
-        union.append(&mut classes.clone());
-        Self::base(union)
+    fn append<T>(classes: impl ToClasses) -> Node<T> {
+        if let Some(mut classes) = classes.to_classes() {
+            let mut union = Self::classes();
+            union.append(&mut classes);
+            Self::base(union)
+        } else {
+            Self::base(Self::classes())
+        }
     }
 
-    fn with<T>(classes: Vec<&str>) -> Node<T> {
+    fn with<T>(classes: impl ToClasses) -> Node<T> {
         Self::base(classes)
     }
 }

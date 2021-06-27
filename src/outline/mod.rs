@@ -1,6 +1,8 @@
 mod outline_trait;
 pub use outline_trait::Outline;
 
+mod outline_trait_private;
+
 mod arrows_expand;
 pub use arrows_expand::ArrowsExpand;
 

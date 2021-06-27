@@ -1,11 +1,11 @@
 use seed::{prelude::*, *};
 
-use super::Solid;
+use super::{solid_trait_private::SolidPrivate, Solid};
 
 pub struct CreditCard;
 
-impl Solid for CreditCard {
-    fn base<T>(classes: Vec<&str>) -> Node<T> {
+impl SolidPrivate for CreditCard {
+    fn base<T>(classes: impl ToClasses) -> Node<T> {
         svg![
             C![classes],
             attrs!(
@@ -23,3 +23,5 @@ impl Solid for CreditCard {
         ]
     }
 }
+
+impl Solid for CreditCard {}

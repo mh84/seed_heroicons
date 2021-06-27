@@ -1,11 +1,11 @@
 use seed::{prelude::*, *};
 
-use super::Outline;
+use super::{outline_trait_private::OutlinePrivate, Outline};
 
 pub struct AcademicCap;
 
-impl Outline for AcademicCap {
-    fn base<T>(classes: Vec<&str>) -> Node<T> {
+impl OutlinePrivate for AcademicCap {
+    fn base<T>(classes: impl ToClasses) -> Node<T> {
         svg![
             C![classes],
             attrs!(
@@ -28,3 +28,5 @@ impl Outline for AcademicCap {
         ]
     }
 }
+
+impl Outline for AcademicCap {}

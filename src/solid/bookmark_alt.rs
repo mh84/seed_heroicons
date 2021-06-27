@@ -1,11 +1,11 @@
 use seed::{prelude::*, *};
 
-use super::Solid;
+use super::{solid_trait_private::SolidPrivate, Solid};
 
 pub struct BookmarkAlt;
 
-impl Solid for BookmarkAlt {
-    fn base<T>(classes: Vec<&str>) -> Node<T> {
+impl SolidPrivate for BookmarkAlt {
+    fn base<T>(classes: impl ToClasses) -> Node<T> {
         svg![
             C![classes],
             attrs!(
@@ -20,3 +20,5 @@ impl Solid for BookmarkAlt {
         ]
     }
 }
+
+impl Solid for BookmarkAlt {}

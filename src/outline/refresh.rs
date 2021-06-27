@@ -1,11 +1,11 @@
 use seed::{prelude::*, *};
 
-use super::Outline;
+use super::{outline_trait_private::OutlinePrivate, Outline};
 
 pub struct Refresh;
 
-impl Outline for Refresh {
-    fn base<T>(classes: Vec<&str>) -> Node<T> {
+impl OutlinePrivate for Refresh {
+    fn base<T>(classes: impl ToClasses) -> Node<T> {
         svg![
             C![classes],
             attrs!(
@@ -22,3 +22,5 @@ impl Outline for Refresh {
         ]
     }
 }
+
+impl Outline for Refresh {}

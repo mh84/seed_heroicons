@@ -1,11 +1,11 @@
 use seed::{prelude::*, *};
 
-use super::Solid;
+use super::{solid_trait_private::SolidPrivate, Solid};
 
 pub struct ChevronDoubleRight;
 
-impl Solid for ChevronDoubleRight {
-    fn base<T>(classes: Vec<&str>) -> Node<T> {
+impl SolidPrivate for ChevronDoubleRight {
+    fn base<T>(classes: impl ToClasses) -> Node<T> {
         svg![
             C![classes],
             attrs!(
@@ -25,3 +25,5 @@ impl Solid for ChevronDoubleRight {
         ]
     }
 }
+
+impl Solid for ChevronDoubleRight {}

@@ -1,11 +1,11 @@
 use seed::{prelude::*, *};
 
-use super::Solid;
+use super::{solid_trait_private::SolidPrivate, Solid};
 
 pub struct Mail;
 
-impl Solid for Mail {
-    fn base<T>(classes: Vec<&str>) -> Node<T> {
+impl SolidPrivate for Mail {
+    fn base<T>(classes: impl ToClasses) -> Node<T> {
         svg![
             C![classes],
             attrs!(
@@ -21,3 +21,5 @@ impl Solid for Mail {
         ]
     }
 }
+
+impl Solid for Mail {}

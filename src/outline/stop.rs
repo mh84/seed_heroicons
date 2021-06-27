@@ -1,11 +1,11 @@
 use seed::{prelude::*, *};
 
-use super::Outline;
+use super::{outline_trait_private::OutlinePrivate, Outline};
 
 pub struct Stop;
 
-impl Outline for Stop {
-    fn base<T>(classes: Vec<&str>) -> Node<T> {
+impl OutlinePrivate for Stop {
+    fn base<T>(classes: impl ToClasses) -> Node<T> {
         svg![
             C![classes],
             attrs!(
@@ -28,3 +28,5 @@ impl Outline for Stop {
         ]
     }
 }
+
+impl Outline for Stop {}

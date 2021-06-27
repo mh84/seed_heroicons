@@ -1,11 +1,11 @@
 use seed::{prelude::*, *};
 
-use super::Solid;
+use super::{solid_trait_private::SolidPrivate, Solid};
 
 pub struct Rss;
 
-impl Solid for Rss {
-    fn base<T>(classes: Vec<&str>) -> Node<T> {
+impl SolidPrivate for Rss {
+    fn base<T>(classes: impl ToClasses) -> Node<T> {
         svg![
             C![classes],
             attrs!(
@@ -21,3 +21,5 @@ impl Solid for Rss {
         ]
     }
 }
+
+impl Solid for Rss {}

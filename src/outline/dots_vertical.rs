@@ -1,11 +1,11 @@
 use seed::{prelude::*, *};
 
-use super::Outline;
+use super::{outline_trait_private::OutlinePrivate, Outline};
 
 pub struct DotsVertical;
 
-impl Outline for DotsVertical {
-    fn base<T>(classes: Vec<&str>) -> Node<T> {
+impl OutlinePrivate for DotsVertical {
+    fn base<T>(classes: impl ToClasses) -> Node<T> {
         svg![
             C![classes],
             attrs!(
@@ -22,3 +22,5 @@ impl Outline for DotsVertical {
         ]
     }
 }
+
+impl Outline for DotsVertical {}

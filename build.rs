@@ -22,6 +22,7 @@ fn convert(style: &str, path: &Path) -> Result<(), Box<dyn Error>> {
     let mut outline_mods: String = String::new();
     outline_mods.push_str(&format!("mod {}_trait;\n", lower));
     outline_mods.push_str(&format!("pub use {}_trait::{};\n\n", lower, style));
+    outline_mods.push_str(&format!("mod {}_trait_private;\n\n", lower));
 
     for entry in fs::read_dir(&source)? {
         if let Ok(entry) = entry {
@@ -47,7 +48,10 @@ fn convert(style: &str, path: &Path) -> Result<(), Box<dyn Error>> {
             let mut file = fs::File::create(file_path)?;
 
             let mut file_content = String::from("use seed::{*, prelude::*};\n\n");
-            file_content.push_str(&format!("use super::{};\n\n", style));
+            file_content.push_str(&format!(
+                "use super::{{{}, {}_trait_private::{}Private}};\n\n",
+                style, lower, style
+            ));
 
             let struct_name = file_name.split('_').collect::<Vec<&str>>().iter().fold(
                 "".to_string(),
@@ -65,8 +69,8 @@ fn convert(style: &str, path: &Path) -> Result<(), Box<dyn Error>> {
             outline_mods.push_str(&format!("pub use {}::{};\n\n", file_name, struct_name));
 
             file_content.push_str(&format!("pub struct {};\n\n", struct_name));
-            file_content.push_str(&format!("impl {} for {} {{\n", style, struct_name));
-            file_content.push_str("fn base<T>(classes: Vec<&str>) -> Node<T> {\n");
+            file_content.push_str(&format!("impl {}Private for {} {{\n", style, struct_name));
+            file_content.push_str("fn base<T>(classes: impl ToClasses) -> Node<T> {\n");
             file_content.push_str("svg![\n");
             file_content.push_str("C![classes],\n");
             file_content.push_str("attrs!(\n");
@@ -95,7 +99,9 @@ fn convert(style: &str, path: &Path) -> Result<(), Box<dyn Error>> {
 
             file_content.push_str("]\n");
             file_content.push_str("}\n");
-            file_content.push('}');
+            file_content.push_str("}\n\n");
+
+            file_content.push_str(&format!("impl {} for {} {{}}\n", style, struct_name));
 
             if let Err(error) = write!(file, "{}", file_content) {
                 return Err(Box::new(error));
@@ -115,7 +121,7 @@ fn convert(style: &str, path: &Path) -> Result<(), Box<dyn Error>> {
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
-    if let None = env::var_os("DO_ICON_GENERATION") {
+    if env::var_os("DO_ICON_GENERATION").is_none() {
         return Ok(());
     }
 

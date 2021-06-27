@@ -1,11 +1,11 @@
 use seed::{prelude::*, *};
 
-use super::Outline;
+use super::{outline_trait_private::OutlinePrivate, Outline};
 
 pub struct Beaker;
 
-impl Outline for Beaker {
-    fn base<T>(classes: Vec<&str>) -> Node<T> {
+impl OutlinePrivate for Beaker {
+    fn base<T>(classes: impl ToClasses) -> Node<T> {
         svg![
             C![classes],
             attrs!(
@@ -22,3 +22,5 @@ impl Outline for Beaker {
         ]
     }
 }
+
+impl Outline for Beaker {}

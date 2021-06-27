@@ -1,11 +1,11 @@
 use seed::{prelude::*, *};
 
-use super::Outline;
+use super::{outline_trait_private::OutlinePrivate, Outline};
 
 pub struct ChartSquareBar;
 
-impl Outline for ChartSquareBar {
-    fn base<T>(classes: Vec<&str>) -> Node<T> {
+impl OutlinePrivate for ChartSquareBar {
+    fn base<T>(classes: impl ToClasses) -> Node<T> {
         svg![
             C![classes],
             attrs!(
@@ -22,3 +22,5 @@ impl Outline for ChartSquareBar {
         ]
     }
 }
+
+impl Outline for ChartSquareBar {}

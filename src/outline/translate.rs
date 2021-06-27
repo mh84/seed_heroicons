@@ -1,11 +1,11 @@
 use seed::{prelude::*, *};
 
-use super::Outline;
+use super::{outline_trait_private::OutlinePrivate, Outline};
 
 pub struct Translate;
 
-impl Outline for Translate {
-    fn base<T>(classes: Vec<&str>) -> Node<T> {
+impl OutlinePrivate for Translate {
+    fn base<T>(classes: impl ToClasses) -> Node<T> {
         svg![
             C![classes],
             attrs!(
@@ -22,3 +22,5 @@ impl Outline for Translate {
         ]
     }
 }
+
+impl Outline for Translate {}

@@ -1,11 +1,11 @@
 use seed::{prelude::*, *};
 
-use super::Solid;
+use super::{solid_trait_private::SolidPrivate, Solid};
 
 pub struct DocumentSearch;
 
-impl Solid for DocumentSearch {
-    fn base<T>(classes: Vec<&str>) -> Node<T> {
+impl SolidPrivate for DocumentSearch {
+    fn base<T>(classes: impl ToClasses) -> Node<T> {
         svg![
             C![classes],
             attrs!(
@@ -23,3 +23,5 @@ impl Solid for DocumentSearch {
         ]
     }
 }
+
+impl Solid for DocumentSearch {}

@@ -1,11 +1,11 @@
 use seed::{prelude::*, *};
 
-use super::Outline;
+use super::{outline_trait_private::OutlinePrivate, Outline};
 
 pub struct Clock;
 
-impl Outline for Clock {
-    fn base<T>(classes: Vec<&str>) -> Node<T> {
+impl OutlinePrivate for Clock {
+    fn base<T>(classes: impl ToClasses) -> Node<T> {
         svg![
             C![classes],
             attrs!(
@@ -22,3 +22,5 @@ impl Outline for Clock {
         ]
     }
 }
+
+impl Outline for Clock {}

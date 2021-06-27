@@ -1,6 +1,8 @@
 mod solid_trait;
 pub use solid_trait::Solid;
 
+mod solid_trait_private;
+
 mod arrows_expand;
 pub use arrows_expand::ArrowsExpand;
 

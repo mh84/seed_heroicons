@@ -1,11 +1,11 @@
 use seed::{prelude::*, *};
 
-use super::Solid;
+use super::{solid_trait_private::SolidPrivate, Solid};
 
 pub struct StatusOffline;
 
-impl Solid for StatusOffline {
-    fn base<T>(classes: Vec<&str>) -> Node<T> {
+impl SolidPrivate for StatusOffline {
+    fn base<T>(classes: impl ToClasses) -> Node<T> {
         svg![
             C![classes],
             attrs!(
@@ -18,3 +18,5 @@ impl Solid for StatusOffline {
         ]
     }
 }
+
+impl Solid for StatusOffline {}

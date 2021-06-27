@@ -1,11 +1,11 @@
 use seed::{prelude::*, *};
 
-use super::Outline;
+use super::{outline_trait_private::OutlinePrivate, Outline};
 
 pub struct StatusOffline;
 
-impl Outline for StatusOffline {
-    fn base<T>(classes: Vec<&str>) -> Node<T> {
+impl OutlinePrivate for StatusOffline {
+    fn base<T>(classes: impl ToClasses) -> Node<T> {
         svg![
             C![classes],
             attrs!(
@@ -22,3 +22,5 @@ impl Outline for StatusOffline {
         ]
     }
 }
+
+impl Outline for StatusOffline {}
