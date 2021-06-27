@@ -115,6 +115,10 @@ fn convert(style: &str, path: &Path) -> Result<(), Box<dyn Error>> {
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
+    if let None = env::var_os("DO_ICON_GENERATION") {
+        return Ok(());
+    }
+
     if let Some(out_dir) = env::var_os("OUT_DIR") {
         let path = PathBuf::from(out_dir).join("heroicons");
 
