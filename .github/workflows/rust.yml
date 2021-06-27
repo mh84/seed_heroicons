@@ -15,8 +15,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build
-    - run: cargo build --verbose
-    - run: cargo fmt
-    - run: git add -A
-    - run: git commit
-    - run: git push
+    - run |
+        cargo build --verbose
+        cargo fmt
+        git add -A
+        git commit
+        git push
