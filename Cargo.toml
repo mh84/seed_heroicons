@@ -1,0 +1,11 @@
+[package]
+name = "seed_heroicons"
+version = "0.1.0"
+edition = "2018"
+
+[dependencies]
+seed = { git = "https://github.com/seed-rs/seed" }
+
+[build-dependencies]
+git2 = "0.13.20"
+minidom = "0.13.0"
