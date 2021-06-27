@@ -3,7 +3,7 @@ seed_heroicons
 
 Provides a simple to use abstraction for [heroicons](https://heroicons.com/) to embed into [seed](https://github.com/seed-rs/seed) projects with the possibility to use additional classes if needed.
 
-The icons are generated automatically from (source)[https://github.com/tailwindlabs/heroicons] and all thanks for creating them should be given to [Tailwind Labs](https://github.com/tailwindlabs).
+The icons are automatically generated from [source](https://github.com/tailwindlabs/heroicons) and all thanks for creating them should be given to [Tailwind Labs](https://github.com/tailwindlabs).
 
 ## Example
 
